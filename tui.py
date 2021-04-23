@@ -97,11 +97,15 @@ class MainForm(npyscreen.FormBaseNew):
         # When press ALT + ENTER, send request & update output's text
         if self.input.value != "":
             try:
-                targetText = self.translator.translate(self.input.value)
+                targetText = self.translator.translate(self.input.value.replace('\n', ' '))
             except:
-                targetText = "This is not a true translation, there exist an error."
+                targetText = ["This is not a true translation, there exist an error."]
+
             finally:
-                self.output.value = targetText
+                text = ""
+                for i in targetText:
+                    text = text + i + "\n"
+                self.output.value = text
 
                 # refresh entire form
                 # Though npyscreen's documentation mention that we should avoid using DISPLAY() function

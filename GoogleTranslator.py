@@ -58,5 +58,8 @@ class GoogleTranslator():
         # get information block
         data = eval(targetLine)
         data = eval(data[0][2])
-        return data[1][0][0][5][0][0]
-
+        
+        ans = []
+        for i in data[1][0][0][5]:
+            ans.append(i[0])
+        return ans
