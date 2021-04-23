@@ -60,10 +60,3 @@ class GoogleTranslator():
         data = eval(data[0][2])
         return data[1][0][0][5][0][0]
 
-translator = GoogleTranslator("en", 'zh_TW')
-
-n = ""
-while n!="!exit":
-    n = input("English: ")
-    if n!="" or n!="!exit":
-        print(translator.translate(n))
