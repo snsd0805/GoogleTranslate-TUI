@@ -25,9 +25,13 @@ class GoogleTranslator():
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
 
+        # can't sure whether it works for everyone, token in this URL might been blocked.
         self.DATA = "f.req=%5B%5B%5B%22MkEWBc%22%2C%22%5B%5B%5C%22{}%5C%22%2C%5C%22{}%5C%22%2C%5C%22{}%5C%22%2Ctrue%5D%2C%5Bnull%5D%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&at=AD08yZn6jdbpV8qLjfergSwRT4IO%3A1618543754261&"
 
     def translate(self, text):
+        '''
+            return a string which translate from self.fr to self.to
+        '''
         # send request
         text = quote(text)
         response = requests.post(
@@ -41,6 +45,7 @@ class GoogleTranslator():
             targetLine += lines[i]
 
         # replace useless char
+        # change JSON format to Python format because we will use this string to generate Python code
         replaceDict = {
             '\\n': '',
             'null': 'None',
