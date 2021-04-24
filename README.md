@@ -2,11 +2,13 @@
 
 Google Translate client on your console (Unofficial)
 
+![](Screenshot_20210424_224030.png)
+
 ## Warning
 
 It use Google Translate's API(free), so it may not work when you send too many requests.
 
-It just a practice for npyscreen, this respository may not update any more.
+**It just a practice for npyscreen, this respository may not update any more.**
 
 ## Usage
 
