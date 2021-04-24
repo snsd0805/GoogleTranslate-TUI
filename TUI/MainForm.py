@@ -1,14 +1,7 @@
 import npyscreen
 import curses
+from TUI.Box import EditBox
 from GoogleTranslator import GoogleTranslator
-
-class TranslatorApp(npyscreen.NPSAppManaged):
-    def onStart(self):
-        npyscreen.setTheme(npyscreen.Themes.ColorfulTheme)
-        self.addForm("MAIN", MainForm, name="Google Translator - TUI")
-
-class Box(npyscreen.BoxTitle):
-    _contained_widget = npyscreen.MultiLineEdit
 
 class MainForm(npyscreen.FormBaseNew):
     def create(self):
@@ -31,19 +24,20 @@ class MainForm(npyscreen.FormBaseNew):
         # get terminal's size
         y, x = self.useable_space()
 
-        self.input = self.add(Box, name="Input (from)", footer=self.translator.fr, 
+        self.input = self.add(EditBox, name="Input (from)", footer=self.translator.fr, 
             max_width=x//2-5, max_height=y//3,
             relx=3, rely=3,
             value="Hello world"
         )
         
-        self.output = self.add(Box, name="Output (to)", footer=self.translator.to,
+        self.output = self.add(EditBox, name="Output (to)", footer=self.translator.to,
             max_width=x//2-5, max_height=y//3,
             relx=x//2+2, rely=3,
-            value="你好，世界", editable=False
+            value="你好，世界",
+            editable=False
         )
 
-        self.readme = self.add(Box, name="README",
+        self.readme = self.add(EditBox, name="README",
             max_width=x-5, max_height=y//3*2-6,
             relx=3, rely=y//3+4,
             value='''

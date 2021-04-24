@@ -5,9 +5,11 @@ from urllib.parse import quote
 class GoogleTranslator():
     def __init__(self, fr, to):
         # set up
+        self.languageCode = {}
         self.fr = fr
         self.to = to
-        print("from {} to {}".format(fr, to))
+
+        self.loadLanguageCode()
 
         self.URL = "https://translate.google.com.tw/_/TranslateWebserverUi/data/batchexecute?\
             rpcids=MkEWBc&\
@@ -27,6 +29,15 @@ class GoogleTranslator():
 
         # can't sure whether it works for everyone, token in this URL might been blocked.
         self.DATA = "f.req=%5B%5B%5B%22MkEWBc%22%2C%22%5B%5B%5C%22{}%5C%22%2C%5C%22{}%5C%22%2C%5C%22{}%5C%22%2Ctrue%5D%2C%5Bnull%5D%5D%22%2Cnull%2C%22generic%22%5D%5D%5D&at=AD08yZn6jdbpV8qLjfergSwRT4IO%3A1618543754261&"
+
+    def loadLanguageCode(self):
+        with open('LanguageCode.csv') as fp:
+            data = fp.readlines()
+            data = [line.replace('\n', '') for line in data]
+        
+        for line in data:
+            country, code = line.split(',')
+            self.languageCode[country] = code
 
     def translate(self, text):
         '''
