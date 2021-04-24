@@ -8,6 +8,8 @@ class GoogleTranslator():
         self.languageCode = {}
         self.fr = fr
         self.to = to
+        self.inputLanguage = ""
+        self.outputLanguage = ""
 
         self.loadLanguageCode()
 
@@ -38,6 +40,8 @@ class GoogleTranslator():
         for line in data:
             country, code = line.split(',')
             self.languageCode[country] = code
+            if code==self.fr: self.inputLanguage = country
+            if code==self.to: self.outputLanguage = country
 
     def translate(self, text):
         '''

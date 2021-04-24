@@ -1,12 +1,9 @@
 import npyscreen
 import curses
 from TUI.Box import EditBox
-from GoogleTranslator import GoogleTranslator
 
 class MainForm(npyscreen.FormBaseNew):
     def create(self):
-        # set translator
-        self.translator = GoogleTranslator('en', "zh_TW")
 
         # set event handler
         event_handlers = {
@@ -18,19 +15,22 @@ class MainForm(npyscreen.FormBaseNew):
 
             # delete all input
             "^D": self.remove_text,
+
+            # select language
+            "^S": self.change_language,
         }
         self.add_handlers(event_handlers)
 
         # get terminal's size
         y, x = self.useable_space()
 
-        self.input = self.add(EditBox, name="Input (from)", footer=self.translator.fr, 
+        self.input = self.add(EditBox, name="Input (from)", footer=self.parentApp.translator.inputLanguage, 
             max_width=x//2-5, max_height=y//3,
             relx=3, rely=3,
             value="Hello world"
         )
         
-        self.output = self.add(EditBox, name="Output (to)", footer=self.translator.to,
+        self.output = self.add(EditBox, name="Output (to)", footer=self.parentApp.translator.outputLanguage,
             max_width=x//2-5, max_height=y//3,
             relx=x//2+2, rely=3,
             value="你好，世界",
@@ -82,6 +82,9 @@ class MainForm(npyscreen.FormBaseNew):
         # Output and README's contained widget, TextField must be move to a new position
         self.output.entry_widget.relx = x//2+3
         self.readme.entry_widget.rely = y//3+5
+
+        self.input.footer = self.parentApp.translator.inputLanguage
+        self.output.footer = self.parentApp.translator.outputLanguage
     
     def send_text(self, event):
         '''
@@ -91,7 +94,7 @@ class MainForm(npyscreen.FormBaseNew):
         # When press ALT + ENTER, send request & update output's text
         if self.input.value != "":
             try:
-                targetText = self.translator.translate(self.input.value.replace('\n', ' '))
+                targetText = self.parentApp.translator.translate(self.input.value.replace('\n', ' '))
             except:
                 targetText = ["This is not a true translation, there exist an error."]
 
@@ -112,3 +115,6 @@ class MainForm(npyscreen.FormBaseNew):
 
     def exit_app(self, event):
         exit(0)
+    
+    def change_language(self, event):
+        self.parentApp.switchForm("LANGUAGE")
