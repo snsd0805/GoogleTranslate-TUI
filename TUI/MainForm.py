@@ -30,6 +30,10 @@ class MainForm(npyscreen.FormBaseNew):
             value="Hello world"
         )
         
+        # avoid some language input error
+        # ex. Chinese
+        self.input.entry_widget.when_value_edited = lambda: self.DISPLAY()
+
         self.output = self.add(EditBox, name="Output (to)", footer=self.parentApp.translator.outputLanguage,
             max_width=x//2-5, max_height=y//3,
             relx=x//2+2, rely=3,
