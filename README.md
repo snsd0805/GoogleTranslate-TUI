@@ -10,10 +10,23 @@ It just a practice for npyscreen, this respository may not update any more.
 
 ## Usage
 
-`python main.py`
+- Change Language Settings: `vim config.json`
+    - You can find Language Code in [ISO-639-1](https://en.wikipedia.org/wiki/ISO_639-1) or [Google Support](https://cloud.google.com/translate/docs/languages) or `LanguageCode.csv`
+    ```
+        {
+            "inputLanguage": "en",
+            "outputLanguage": "zh-TW"
+        }
+    ```
+
+- Start
+    - `python main.py`
 
 ## Controls
 
 - Send Request: `ALT + ENTER`
 - Delete all input: `CTRL + D`
 - Exit: `Ctrl + Q`
+- Select Language: `Ctrl + S`
+    - Select other Widget: `TAB`/`Shift+TAB`
+    - Select: `ENTER`

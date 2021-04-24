@@ -53,9 +53,10 @@ class MainForm(npyscreen.FormBaseNew):
 
         It just a practice for npyscreen, this respository may not update any more.
 
-        -    ^Q           :         quit
-        -    ALT + ENTER  :         search
-        -    CTRL + D     :         delete all input
+        -    ^Q           :         Quit
+        -    ALT + ENTER  :         Search
+        -    CTRL + D     :         Delete all input
+        -    CTRL + S     :         Select Language
             ''',
             editable=False
         )
