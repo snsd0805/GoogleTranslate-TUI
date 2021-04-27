@@ -2,8 +2,37 @@ import npyscreen
 import curses
 from TUI.Box import EditBox
 
+readme = '''
+        █▀▀ █▀█ █▀█ █▀▀ █░░ █▀▀ ▄▄ ▀█▀ █▀█ ▄▀█ █▄░█ █▀ █░░ ▄▀█ ▀█▀ █▀▀   ▀█▀ █░█ █
+        █▄█ █▄█ █▄█ █▄█ █▄▄ ██▄ ░░ ░█░ █▀▄ █▀█ █░▀█ ▄█ █▄▄ █▀█ ░█░ ██▄   ░█░ █▄█ █
+        
+        This is an unofficial Google Translate client.
+        It use Google Translate's API(free), so it may not work when you send too many requests.
+
+        It just a practice for npyscreen, this respository may not update any more.
+
+        -    ^Q           :         Quit
+        -    ALT + ENTER  :         Search
+        -    CTRL + D     :         Delete all input
+        -    CTRL + S     :         Select Language
+'''
+
 class MainForm(npyscreen.FormBaseNew):
+
+    def while_waiting(self):
+        if not self.lock:
+            self.DISPLAY()
+        else:
+            self.lock = True
+
     def create(self):
+        self.keypress_timeout = 5
+
+        # lock is for INPUT's DISPLAY() updatting
+        self.lock = False
+
+        def inputUpdate():
+            self.lock = False
 
         # set event handler
         event_handlers = {
@@ -32,7 +61,7 @@ class MainForm(npyscreen.FormBaseNew):
         
         # avoid some language input error
         # ex. Chinese
-        self.input.entry_widget.when_value_edited = lambda: self.DISPLAY()
+        self.input.entry_widget.when_value_edited = inputUpdate
 
         self.output = self.add(EditBox, name="Output (to)", footer=self.parentApp.translator.outputLanguage,
             max_width=x//2-5, max_height=y//3,
@@ -44,20 +73,7 @@ class MainForm(npyscreen.FormBaseNew):
         self.readme = self.add(EditBox, name="README",
             max_width=x-5, max_height=y//3*2-6,
             relx=3, rely=y//3+4,
-            value='''
-        █▀▀ █▀█ █▀█ █▀▀ █░░ █▀▀ ▄▄ ▀█▀ █▀█ ▄▀█ █▄░█ █▀ █░░ ▄▀█ ▀█▀ █▀▀   ▀█▀ █░█ █
-        █▄█ █▄█ █▄█ █▄█ █▄▄ ██▄ ░░ ░█░ █▀▄ █▀█ █░▀█ ▄█ █▄▄ █▀█ ░█░ ██▄   ░█░ █▄█ █
-        
-        This is an unofficial Google Translate client.
-        It use Google Translate's API(free), so it may not work when you send too many requests.
-
-        It just a practice for npyscreen, this respository may not update any more.
-
-        -    ^Q           :         Quit
-        -    ALT + ENTER  :         Search
-        -    CTRL + D     :         Delete all input
-        -    CTRL + S     :         Select Language
-            ''',
+            value=readme,
             editable=False
         )
     
