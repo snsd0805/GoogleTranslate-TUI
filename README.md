@@ -11,6 +11,8 @@ It use Google Translate's API(free), so it may not work when you send too many r
 **It just a practice for npyscreen, this respository may not update any more.**
 
 ## Usage
+- Install packages
+    - `pip install -r requirements.txt`
 
 - Change Language Settings: `vim config.json`
     - You can find Language Code in [ISO-639-1](https://en.wikipedia.org/wiki/ISO_639-1) or [Google Support](https://cloud.google.com/translate/docs/languages) or `LanguageCode.csv`
