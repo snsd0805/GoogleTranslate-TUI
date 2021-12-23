@@ -34,3 +34,5 @@ It use Google Translate's API(free), so it may not work when you send too many r
 - Select Language: `Ctrl + S`
     - Select other Widget: `TAB`/`Shift+TAB`
     - Select: `ENTER`
+- Play Sound on left: `CTRL + K`
+- Play Sound on right: `CTRL + L`
