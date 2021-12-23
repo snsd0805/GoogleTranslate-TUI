@@ -1,5 +1,6 @@
 import npyscreen
 import curses
+from Sound import Sound
 from TUI.Box import EditBox
 
 readme = '''
@@ -15,6 +16,8 @@ readme = '''
         -    ALT + ENTER  :         Search
         -    CTRL + D     :         Delete all input
         -    CTRL + S     :         Select Language
+        -    CTRL + K     :         Play left sound
+        -    CTRL + L     :         Play right sound
 '''
 
 class MainForm(npyscreen.FormBaseNew):
@@ -47,6 +50,11 @@ class MainForm(npyscreen.FormBaseNew):
 
             # select language
             "^S": self.change_language,
+
+            # play sound on the left window
+            "^K": self.play_left,
+            # play sound on the right window
+            "^L": self.play_right,
         }
         self.add_handlers(event_handlers)
 
@@ -129,7 +137,19 @@ class MainForm(npyscreen.FormBaseNew):
                 # Though npyscreen's documentation mention that we should avoid using DISPLAY() function
                 # I can't display Chinese or Japanese,etc correctly when I didn't use this function.
                 self.DISPLAY()
-    
+
+    def play_left(self, event):
+        if self.input.value != "":
+            message = self.input.value
+            language = self.parentApp.translator.fr
+            Sound().play(message, language)
+        
+    def play_right(self, event):
+        if self.output.value != "":
+            message = self.output.value
+            language = self.parentApp.translator.to
+            Sound().play(message, language)
+        
     def remove_text(self, event):
         self.input.value = ""
         self.input.update()
