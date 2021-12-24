@@ -2,7 +2,7 @@
 
 Google Translate client on your console (Unofficial)
 
-![](Screenshot_20210424_224030.png)
+![](Screenshot_20211224_150251.png)
 
 ## Warning
 
@@ -27,12 +27,14 @@ It use Google Translate's API(free), so it may not work when you send too many r
     - `python main.py`
 
 ## Controls
-
-- Send Request: `ALT + ENTER`
-- Delete all input: `CTRL + D`
-- Exit: `Ctrl + Q`
-- Select Language: `Ctrl + S`
-    - Select other Widget: `TAB`/`Shift+TAB`
-    - Select: `ENTER`
-- Play Sound on left: `CTRL + K`
-- Play Sound on right: `CTRL + L`
+- General
+    - Send Request: `ALT + ENTER`
+    - Swap Language: `CTRL + T`
+    - Delete all input: `CTRL + D`
+    - Exit: `Ctrl + Q`
+    - Select Language: `Ctrl + S`
+        - Select other Widget: `TAB`/`Shift+TAB`
+        - Select: `ENTER`
+- Sound
+    - Play Sound on left: `CTRL + K`
+    - Play Sound on right: `CTRL + L`
