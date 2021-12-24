@@ -12,10 +12,14 @@ readme = '''
 
         It just a practice for npyscreen, this respository may not update any more.
 
+        - General
         -    ^Q           :         Quit
         -    ALT + ENTER  :         Search
+        -    CTRL + T     :         Swap language
         -    CTRL + D     :         Delete all input
         -    CTRL + S     :         Select Language
+        -
+        - Sound
         -    CTRL + K     :         Play left sound
         -    CTRL + L     :         Play right sound
 '''
@@ -53,8 +57,12 @@ class MainForm(npyscreen.FormBaseNew):
 
             # play sound on the left window
             "^K": self.play_left,
+            
             # play sound on the right window
             "^L": self.play_right,
+
+            # reverse language
+            "^T": self.reverse_language
         }
         self.add_handlers(event_handlers)
 
@@ -149,7 +157,22 @@ class MainForm(npyscreen.FormBaseNew):
             message = self.output.value
             language = self.parentApp.translator.to
             Sound().play(message, language)
+
+    def reverse_language(self, event):
+
+        translator = self.parentApp.translator
         
+        translator.to, translator.fr = translator.fr, translator.to
+        translator.inputLanguage, translator.outputLanguage = translator.outputLanguage, translator.inputLanguage
+
+        self.input.value, self.output.value = self.output.value, self.input.value
+
+        self.input.footer = translator.inputLanguage
+        self.input.update()
+
+        self.output.footer = translator.outputLanguage
+        self.output.update()
+
     def remove_text(self, event):
         self.input.value = ""
         self.input.update()
